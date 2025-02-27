@@ -1,22 +1,20 @@
 html, body {
-    height: 100%;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
+    /* Remove flex layout so the page can scroll */
     background-image: url('/static/wallpaper.png'), linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
     background-repeat: repeat;
-    background-size: 200px 200px; /* Adjust based on your preference */
-    background-color: #FFFFFF; /* This color shows before the image loads */
+    background-size: 200px 200px;
+    background-color: #FFFFFF;
     font-family: 'Indie Flower', cursive;
 }
 
 body {
-    width: 100%;
-    max-width: 600px; /* Adjust the max-width as necessary */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    /* If you want to limit the body width and center it horizontally: */
+    max-width: 600px;
+    margin: 0 auto;
+    /* Do NOT use align-items or justify-content here. */
+    /* The default display is block, which allows normal page flow and scrolling. */
 }
 
 .container {
@@ -76,30 +74,38 @@ a:hover, a:focus {
 .content-container {
     background-color: white;
     padding: 20px;
-    border-radius: 10px; /* Optional: adds rounded corners */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow */
-    text-align: center; /* Center the content */
-    margin: 20px auto; /* Center the container horizontally */
-    width: fit-content; /* Adjust the width as needed */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px; /* Or adjust as needed */
 }
 
 #plants-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Create four columns */
-    grid-gap: 10px; /* Space between grid items */
-    padding: 5px; /* Padding around the entire grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 5px;
 }
 
 .plant-container {
     background-color: white;
-    padding: 5px;
+    padding: 10px;
+    margin: 5px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-align: center; /* Center align the text inside each plant container */
+    text-align: center;
 }
+
+.plant-container img {
+    max-width: 100%;
+    height: auto;
+}
+
 
 @media (max-width: 800px) {
     #plants-container {
-        grid-template-columns: repeat(2, 1fr); /* Only 2 columns on smaller screens */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
