@@ -36,7 +36,7 @@
         <div id="plants-container">
             <!-- Render plants initially present in the database -->
             {% for plant in plants %}
-            <div class="plant-container" id="plant-{{ plant.id }}" style="background-color: white; padding: 10px; margin: 5px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <div class="plant-container" id="plant-{{ plant.id }}">
                 <strong>{{ plant.name }}</strong> - ID: {{ plant.id }}<br>
                 Plant Type: {{ plant.plant_type }}<br>
                 <img src="{{ url_for('static', filename='images/' + plant.plant_type + '.png') }}" alt="{{ plant.plant_type }}" style="width:100px;"><br>
@@ -61,16 +61,21 @@
         function getWebSocketUrl(port) {
             const baseUrl = location.protocol + '//' + document.domain + ':' + port;
 
-            // Handling for 'spch.r.killercoda.com'
-            if (location.hostname.includes('spch.r.killercoda.com')) {
+            // Handling for '*.r.killercoda.com' with dynamic middle subdomain
+            if (location.hostname.includes('killercoda.com')) {
                 const parts = location.hostname.split('-');
+                
                 if (parts.length >= 3) {
                     const uniqueId = parts[0];  // First part before the first dash
                     const ip = parts.slice(1, -1).join('-');  // All parts between first and last dash
-                    const domain = 'spch.r.killercoda.com';
-                    return `https://${uniqueId}-${ip}-${port}.${domain}`;
+
+                    // Extract the full dynamic domain including the middle subdomain
+                    const domainParts = location.hostname.split('.');
+                    const dynamicDomain = domainParts.slice(-4).join('.'); // Captures 'spca.r.killercoda.com' dynamically
+
+                    return `https://${uniqueId}-${ip}-${port}.${dynamicDomain}`;
                 } else {
-                    console.error("Hostname format is unexpected for spch.r.killercoda.com:", location.hostname);
+                    console.error("Hostname format is unexpected:", location.hostname);
                     return baseUrl;
                 }
             }
