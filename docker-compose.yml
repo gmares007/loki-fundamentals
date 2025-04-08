@@ -3,7 +3,7 @@ services:
   carnivorous-garden:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     ports: 
       - 5005:5000
     volumes:
